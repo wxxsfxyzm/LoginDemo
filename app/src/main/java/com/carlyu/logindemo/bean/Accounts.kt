@@ -20,3 +20,28 @@ data class User(
     val studentName: String,
     val balance: BigDecimal
 ) : Serializable
+
+data class OrderMaster(
+    val code: String,
+    val msg: String,
+    val studentId: String,
+    val studentName: String,
+    val balance: BigDecimal,
+    val data: List<OrderOTOList>
+) : Serializable
+
+data class OrderOTOList(
+    val orderId: String,
+    val studentId: String,
+    val orderAmount: BigDecimal,// 订单总价
+    val data: List<OrderDetailList>
+) : Serializable
+
+data class OrderDetailList(
+    val detailId: String,
+    val orderId: String,
+    val foodId: String,
+    val foodName: String,
+    val foodPrice: BigDecimal,
+    val quantity: Int
+) : Serializable

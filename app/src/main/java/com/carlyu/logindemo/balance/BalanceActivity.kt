@@ -58,9 +58,11 @@ class BalanceActivity : BaseActivity<ActivityBalanceBinding>(), BalanceContract.
         val user = extraUserData as User
 
         val mToolbar = findViewById<Toolbar>(R.id.toolbar)
-        mToolbar.title = user.studentName
-        mToolbar.subtitle = user.studentId
-        mToolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back_24)
+        mToolbar.apply {
+            title = user.studentName
+            subtitle = user.studentId
+            navigationIcon = ContextCompat.getDrawable(this@BalanceActivity, R.drawable.ic_baseline_arrow_back_24)
+        }
 
         setSupportActionBar(mToolbar)
 

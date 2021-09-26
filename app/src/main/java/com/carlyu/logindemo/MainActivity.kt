@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.carlyu.logindemo.balance.BalanceActivity
 import com.carlyu.logindemo.bean.User
 import com.carlyu.logindemo.databinding.ActivityMainBinding
+import com.carlyu.logindemo.detail.DetailActivity
 import com.carlyu.logindemo.login.LoginActivity
 import com.carlyu.logindemo.utils.SPUtil
 import com.carlyu.logindemo.utils.toast
@@ -41,12 +42,14 @@ class MainActivity : AppCompatActivity() {
             //finish()
         }
         binding.goGetDetailButton.setOnClickListener {
-            if (clickCount == 3) {
+            // 在开发了别骂了
+            /*if (clickCount == 3) {
                 toast("别戳了")
             } else {
                 clickCount++
                 toast("开发中！")
-            }
+            }*/
+            DetailActivity.startActivity(this)
         }
         binding.exitLogin.setOnClickListener {
             indeterminateProgressDialog("退出登录中", "请稍候")

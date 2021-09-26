@@ -7,13 +7,6 @@ import androidx.viewbinding.ViewBinding
 import com.dylanc.viewbinding.inflateBindingWithGeneric
 
 
-/**
- * @author Roman
- * @des
- * @version $
- * @updateAuthor $
- * @updateDes
- */
 abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     lateinit var binding: T
 
@@ -25,8 +18,6 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         initViews()
         setupToolbar()
     }
-
-    abstract fun getViewBinding(): T?
 
     override fun onDestroy() {
         super.onDestroy()
@@ -46,4 +37,9 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
      * 设置toolbar
      */
     abstract fun setupToolbar()
+
+    /**
+     * 获取视图的ViewBinding
+     */
+    abstract fun getViewBinding(): T?
 }

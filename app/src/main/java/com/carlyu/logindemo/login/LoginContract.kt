@@ -38,7 +38,7 @@ interface LoginContract {
         interface OnLoginCallBack {
             //fun loginSuccess() // 传入空参，仅供测试
             fun loginSuccess(userAccount: Accounts) // 传入用户信息
-            fun loginFail(message: String)
+            fun loginFail(message: String) //传入错误提示
         }
     }
 

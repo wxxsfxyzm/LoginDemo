@@ -28,6 +28,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), LoginContract.View {
         }
     }
 
+    // 尽可能不要写在onCreate里面
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -60,27 +61,31 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), LoginContract.View {
     }
 
     override fun initViews() {
-        binding.loginBtnLogin.textSize = 15F
-        binding.loginBtnLogin.setOnClickListener {
-            indeterminateProgressDialog("正在登录中", "请稍候") {
-                setCancelable(false)
-                setOnShowListener {
-                    userToLogin()
-                    kotlin.run {
-                        Thread.sleep(2000)
-                        it.cancel()
+        binding.loginBtnLogin.apply {
+            textSize = 15F
+            setOnClickListener {
+                indeterminateProgressDialog(resources.getString(R.string.login_ing), resources.getString(R.string.please_wait)) {
+                    setCancelable(false)
+                    setOnShowListener {
+                        userToLogin()
+                        kotlin.run {
+                            Thread.sleep(2000)
+                            it.cancel()
+                        }
                     }
                 }
             }
+        }
+        binding.loginBtnRegister.apply {
+            textSize = 15F
+            setOnClickListener {
+                RegisterActivity.startActivity(this@LoginActivity)
+            }
+        }
 
-        }
-        binding.loginBtnRegister.textSize = 15F
-        binding.loginBtnRegister.setOnClickListener {
-            RegisterActivity.startActivity(this)
-        }
     }
 
-    override fun getViewBinding(): ActivityLoginBinding? {
+    override fun getViewBinding(): ActivityLoginBinding {
         return ActivityLoginBinding.inflate(layoutInflater, binding.root, true)
     }
 
@@ -106,11 +111,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), LoginContract.View {
 
     override fun setupToolbar() {
         val mToolbar = findViewById<Toolbar>(R.id.toolbar)
-        mToolbar.title = "登录"
+        mToolbar.title = resources.getString(R.string.login_login)
         setSupportActionBar(mToolbar)
 
     }
 
+    // When UserId is Int, use this
     /*    override fun getUserById(): Int {
             return if (userid.text.toString() == "")
                 0
@@ -124,9 +130,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), LoginContract.View {
     override fun getUserById(): String =
         binding.inputId.text.toString()
 
-    override fun getPwd(): String {
-        return binding.password.text.toString()
-    }
+    override fun getPwd(): String =
+        binding.password.text.toString()
+
 
     override fun loginSuccess(userAccount: Accounts) {
         toast(getString(R.string.login_success))
@@ -136,7 +142,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), LoginContract.View {
     }
 
     override fun loginFail(msg: String) {
-        toast("登录失败，${msg}")
+        toast(getString(R.string.login_fail) + "，${msg}")
     }
 
     override fun setPresenter(presenter: LoginContract.Presenter) {
